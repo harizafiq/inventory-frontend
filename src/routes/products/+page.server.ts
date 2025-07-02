@@ -20,7 +20,6 @@ export const load = async ({ cookies, url }) => {
   }
 
   const products = await res.json();
-  console.log(products);
   return { 
     products: products.results, // for the array of object if using pagination
     count: products.count,

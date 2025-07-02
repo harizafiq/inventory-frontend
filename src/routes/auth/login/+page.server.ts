@@ -20,7 +20,7 @@ export const actions = {
         cookies.set('access', result.access, {
             path: '/', //cookie global
             httpOnly: false, // set to true if using secure tokens
-            maxAge: 60 * 60, // set to 1 hour (60s * 60s)
+            maxAge: 60 * 5, // set to 5 minute (60s * 5s)
             secure: false // set to true if only https allow
         });
 

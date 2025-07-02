@@ -67,7 +67,7 @@
   <label for="notes">Notes</label>
   <input type="text" id="notes" name="notes" placeholder="e.g. Monthly check" />
 
-  <button type="submit">Update Stock</button>
+  <button class="btn btn-primary" type="submit">Update Stock</button>
 </form>
 
 <h2>📥 Inbound History</h2>
@@ -129,7 +129,7 @@
     <input type="number" id="quantity" name="quantity" required placeholder="Qty" />
     <label for="notes">Notes</label>
     <input type="text" id="notes" name="notes" placeholder="Notes" />
-    <button type="submit">Inbound</button>
+    <button class="btn btn-primary" type="submit">Inbound</button>
 </form>
 
 <!-- Add outbound -->
@@ -139,7 +139,7 @@
     <input type="number" id="quantity" name="quantity" required placeholder="Qty" />
     <label for="notes">Notes</label>
     <input type="text" id="notes" name="notes" placeholder="Notes" />
-    <button type="submit">Outbound</button>
+    <button class="btn btn-primary" type="submit">Outbound</button>
 </form>
 
 <h2>🔁 Cycle Count History</h2>

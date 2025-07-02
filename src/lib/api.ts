@@ -18,7 +18,7 @@ export async function apiFetch(
   });
 
   if (res.status === 401 && refresh) {
-    const refreshRes = await fetch('http://localhost:8000/api/token/refresh/', {
+    const refreshRes = await fetch('http://localhost:8000/api/auth/token/refresh/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ refresh })
