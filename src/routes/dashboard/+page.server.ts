@@ -7,17 +7,24 @@ export const load = async ({cookies}) => {
         redirect(302, '/auth/login');
     }
 
-    const res = await fetch('http://localhost:8000/api/auth/me/', {
-    headers: {
-        Authorization: `Bearer ${access}`
-        }
-    });
+    const [userRes,summaryRes] = await Promise.all([
+        fetch('http://localhost:8000/api/auth/me/', {
+        headers: {
+            Authorization: `Bearer ${access}`
+            }
+        }),
+        fetch('http://localhost:8000/api/inventory/summary/', {
+        headers: {
+            Authorization: `Bearer ${access}`
+            }
+        })
+    ]);
 
-    if (!res.ok) {
-        throw redirect(302, '/auth/login');
+    if (!userRes.ok || !summaryRes.ok) {
+        redirect(302, '/auth/login');
     }
-
-    const user = await res.json();
-    console.log(user);
-    return { user };
+    return { 
+        user: await userRes.json(),
+        summary: await summaryRes.json()
+     };
 }

@@ -16,7 +16,6 @@ export const actions = {
         const quantity = quantityRaw ? parseInt(String(quantityRaw)) : NaN;
 
         if (!name || !sku || isNaN(quantity)) {
-            console.log('masuk');
             return fail(400, {
                 error: 'Please fill in all fields correctly.',
                 values: { name, sku, description, quantityRaw }
