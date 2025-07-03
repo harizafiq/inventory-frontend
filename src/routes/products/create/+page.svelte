@@ -9,10 +9,6 @@
             <input type="text" class="input" name="sku" placeholder="Type here" required/>
         </fieldset>
         <fieldset class="fieldset">
-            <legend class="fieldset-legend">SKU label</legend>
-            <input type="text" class="input" name="sku" placeholder="Type here" required/>
-        </fieldset>
-        <fieldset class="fieldset">
             <legend class="fieldset-legend">Description</legend>
             <input type="text" class="input" name="description" placeholder="Type here" required/>
         </fieldset>

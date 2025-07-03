@@ -1,4 +1,8 @@
+import { redirect } from "@sveltejs/kit";
+
 // src/lib/api.ts
+const baseURL = import.meta.env.VITE_PUBLIC_API_BASE;
+console.log(baseURL);
 export async function apiFetch(
   endpoint: string,
   cookies: any,
@@ -7,8 +11,8 @@ export async function apiFetch(
 ) {
   let access = cookies.get('access');
   const refresh = cookies.get('refresh');
-
-  let res = await fetch(`http://localhost:8000${endpoint}`, {
+console.log(`${baseURL}${endpoint}`);
+  let res = await fetch(`${baseURL}${endpoint}`, {
     method,
     headers: {
       Authorization: `Bearer ${access}`,
@@ -18,7 +22,7 @@ export async function apiFetch(
   });
 
   if (res.status === 401 && refresh) {
-    const refreshRes = await fetch('http://localhost:8000/api/auth/token/refresh/', {
+    const refreshRes = await fetch(`${baseURL}/api/auth/token/refresh/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ refresh })
@@ -35,7 +39,7 @@ export async function apiFetch(
         });
 
       // Retry original request
-      res = await fetch(`http://localhost:8000${endpoint}`, {
+      res = await fetch(`${baseURL}${endpoint}`, {
         method,
         headers: {
           Authorization: `Bearer ${access}`,

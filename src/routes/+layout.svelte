@@ -1,8 +1,12 @@
 <script lang="ts">
 	import '../app.css';
-
+  const title = import.meta.env.VITE_PUBLIC_APP_NAME;
 	let { children, data } = $props();
 </script>
+<svelte:head>
+	<title>{title}</title>
+	<meta name="description" content="This is where the description goes for SEO" />
+</svelte:head>
 <div class="drawer" data-sveltekit-reload><!-- Needed for reload at layout svelte -->
   <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content flex flex-col">

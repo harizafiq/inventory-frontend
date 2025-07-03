@@ -1,27 +1,14 @@
+import { apiFetch } from '$lib/api.js';
 import {redirect} from '@sveltejs/kit';
 
 export const load = async ({cookies}) => {
-    const access = cookies.get('access');
-
-    if (!access) {
-        redirect(302, '/auth/login');
-    }
-
     const [userRes,summaryRes] = await Promise.all([
-        fetch('http://localhost:8000/api/auth/me/', {
-        headers: {
-            Authorization: `Bearer ${access}`
-            }
-        }),
-        fetch('http://localhost:8000/api/inventory/summary/', {
-        headers: {
-            Authorization: `Bearer ${access}`
-            }
-        })
+        apiFetch('/api/auth/me/', cookies),
+        apiFetch('/api/inventory/summary/', cookies),
     ]);
 
     if (!userRes.ok || !summaryRes.ok) {
-        redirect(302, '/auth/login');
+        redirect(302, '/auth/login/');
     }
     return { 
         user: await userRes.json(),

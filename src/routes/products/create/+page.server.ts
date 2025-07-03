@@ -1,12 +1,8 @@
+import { apiFetch } from '$lib/api.js';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const actions = {
     default: async ({cookies, request}) => {
-
-        const access = cookies.get('access');
-        if (!access) {
-            redirect(302, '/auth/login');
-        }
 
         const data = await request.formData();
         const name = data.get('name');
@@ -27,14 +23,7 @@ export const actions = {
                 description: description,
                 quantity: quantity
             };
-            const res = await fetch('http://localhost:8000/api/inventory/products/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${access}`
-                },
-                body: JSON.stringify(payload)
-            });
+            const res = await apiFetch('/api/inventory/products/', cookies, 'POST', payload);
             if (!res.ok) {
                 fail(res.status, { error: 'Failed to create product' });
             }

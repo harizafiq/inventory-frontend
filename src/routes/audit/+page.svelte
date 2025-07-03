@@ -22,6 +22,7 @@
           <th>Type</th>
           <th>Product</th>
           <th>Qty</th>
+          <th>Current Qty</th>
           <th>User</th>
           <th>Notes</th>
           <th>Date</th>
@@ -33,6 +34,7 @@
             <td>{log.type}</td>
             <td>{log.product}</td>
             <td>{log.quantity}</td>
+            <td>{log.current_quantity}</td>
             <td>{log.user}</td>
             <td>{log.notes}</td>
             <td>{new Date(log.created_at).toLocaleString()}</td>
@@ -44,7 +46,7 @@
       <p>No activity yet.</p>
     {/if}
   </div>
-  <!-- {#if data.count > 10}
+  {#if data.count > 10}
     <nav style="margin-top: 1rem; display: flex; gap: 1rem; align-items: center;">
       {#if data.previous}
         <a href="?page={data.page - 1}">⬅️ Prev</a>
@@ -56,5 +58,5 @@
         <a href="?page={data.page + 1}">Next ➡️</a>
       {/if}
     </nav>
-  {/if} -->
+  {/if}
 </div>
