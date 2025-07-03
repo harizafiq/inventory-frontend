@@ -100,6 +100,13 @@ export const actions = {
             fail(400, { error: 'All fields are required'});
         }
 
+        //check stock first before outbound
+        const productRes = await apiFetch(`/api/inventory/products/${product}/`, cookies);
+        if (!productRes.ok) {
+            redirect(302, '/auth/login/');
+        }
+        const productValue = await productRes.json();
+
         const errors: Record<string, string> = {};
 
         if (isNaN(quantity)) {
@@ -108,24 +115,14 @@ export const actions = {
             errors.quantity = 'Quantity must be a whole number.';
         } else if (quantity < 0) {
             errors.quantity = 'Quantity cannot be negative.';
+        } else if (productValue.quantity < quantity) {
+            errors.quantity = 'Cannot outbound more than quantity.';
         }
 
         if (Object.keys(errors).length > 0) {
             return fail(400, {
                 fields: 'quantity_out',
                 error: errors
-            });
-        }
-
-        //check stock first before outbound
-        const productRes = await apiFetch(`/api/inventory/products/${product}/`, cookies);
-        if (!productRes.ok) {
-            redirect(302, '/auth/login/');
-        }
-        const productValue = await productRes.json();
-        if (productValue.quantity < quantity) {
-            return fail(400, {
-                error:{ field:'quantity_outbound', message:'cannot outbound outbound more than quantity.'}
             });
         }
         const res = await apiFetch('/api/inventory/outbound/', 
